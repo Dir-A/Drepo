@@ -90,7 +90,7 @@ endfunction()
 
 function(zqf_cef_prebuilt_copyfiles target)
   if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-    set(target_dir "$<TARGET_BUNDLE_DIR:${target}>/Content/Frameworks")
+    set(target_dir "$<TARGET_BUNDLE_DIR:${target}>/Contents/Frameworks")
     add_custom_command(
       POST_BUILD
       TARGET "${target}"
