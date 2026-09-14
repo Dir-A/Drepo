@@ -39,8 +39,11 @@ macro(ZQF_CEF_PREBUILT_STARTUP)
   set(CMAKE_GENERATOR ${_zqf_cmake_generator_backup})
   set(CMAKE_OSX_DEPLOYMENT_TARGET ${_zqf_cmake_osx_deployment_target_backup})
 
+  list(REMOVE_ITEM CEF_CXX_COMPILER_FLAGS "-std=c++17")
+  list(REMOVE_ITEM CEF_CXX_COMPILER_FLAGS "/std:c++17")
   list(REMOVE_ITEM CEF_CXX_COMPILER_FLAGS "-std=c++20")
   list(REMOVE_ITEM CEF_CXX_COMPILER_FLAGS "/std:c++20")
+  list(REMOVE_ITEM CEF_CXX_COMPILER_FLAGS "-fno-rtti")
   list(REMOVE_ITEM CEF_CXX_COMPILER_FLAGS "-fno-exceptions")
   list(REMOVE_ITEM CEF_COMPILER_FLAGS_RELEASE "/MT")
   list(REMOVE_ITEM CEF_COMPILER_FLAGS_RELEASE "/O2")
@@ -87,7 +90,7 @@ endfunction()
 
 function(zqf_cef_prebuilt_copyfiles target)
   if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-    set(target_dir "$<TARGET_BUNDLE_DIR:${target}>/../")
+    set(target_dir "$<TARGET_BUNDLE_DIR:${target}>/Content/Frameworks")
     add_custom_command(
       POST_BUILD
       TARGET "${target}"
